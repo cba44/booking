@@ -1,7 +1,8 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
+import { AddEventForm } from './components/AddEventForm';
 import Calendar from './components/Calendar';
-import { EventForm } from './components/EventForm';
+import { EditEventForm } from './components/EditEventForm';
 
 function App() {
 
@@ -9,7 +10,8 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/editEvent" element={<EventForm />} />
+          <Route path="/addEvent" element={<AddEventForm />} />
+          <Route path="/editEvent" element={<EditEventForm />} />
           <Route path="/" element={<Calendar />} />
         </Routes>
       </BrowserRouter>

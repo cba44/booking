@@ -1,4 +1,4 @@
-export class CreateBookingDto {
+export class BookingDto {
     title: string;
     employeeNo: number;
     start: string;
