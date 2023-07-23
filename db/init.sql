@@ -1,0 +1,8 @@
+CREATE TABLE IF NOT EXISTS bookings (
+	id INT NOT NULL AUTO_INCREMENT,
+	employee_no INT NOT NULL,
+	title VARCHAR(150),
+	start_time VARCHAR(50) NOT NULL,
+	end_time VARCHAR(50) NOT NULL,
+	PRIMARY KEY ( id )
+);

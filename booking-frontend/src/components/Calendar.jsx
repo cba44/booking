@@ -35,6 +35,7 @@ export default function Calendar() {
         }}
         // weekends={false}
         selectable={true}
+        height={'90vh'}
         slotMinTime={"07:00:00"}
         slotMaxTime={"17:00:00"}
         expandRows={true}
