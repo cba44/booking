@@ -112,6 +112,9 @@ export default function Calendar() {
           center: 'title',
           right: 'dayGridMonth'
         }}
+        buttonText= {{
+          month: 'Month View'
+        }}
         weekends={false}
         selectable={true}
         height={'90vh'}
