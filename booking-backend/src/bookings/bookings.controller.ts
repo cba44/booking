@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
 import { Booking } from './booking.entity';
 import { BookingsService } from './bookings.service';
 import { BookingDto } from './dto/booking.dto';
@@ -31,5 +31,10 @@ export class BookingsController {
     @Delete(':id')
     async delete(@Param('id') id: number): Promise<number> {
         return this.bookingsService.delete(id);
+    }
+
+    @Get('mybookings/:empNo')
+    async GetForEmployee(@Param('empNo') empNo: number): Promise<Booking[]> {
+        return await this.bookingsService.findForEmployee(empNo);
     }
 }

@@ -1,7 +1,8 @@
+import { useState } from 'react';
+
 import { FormControl, FormLabel } from '@mui/material';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import { useState } from "react";
 import { useLocation, useNavigate } from 'react-router-dom';
 import BookingService from '../services/BookingService';
 
@@ -35,6 +36,7 @@ export function AddEventForm() {
 
   return (
     <FormControl >
+      <Button type='submit' onClick={() => navigate('/')}>Home</Button>
       <FormLabel>Booking from {location.state.start} to {location.state.end}</FormLabel>
       <FormLabel htmlFor='title'>Title</FormLabel>
       <TextField type="text" id="title" value={title} onChange={e => setTitle(e.target.value)}></TextField>

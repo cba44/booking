@@ -58,7 +58,7 @@ export function EditEventForm() {
 
   return (
     <FormControl >
-      <Button type='submit' onClick={navigate('/')}>Home</Button>
+      <Button type='submit' onClick={() => navigate('/')}>Home</Button>
       <FormLabel htmlFor='title'>Title</FormLabel>
       <TextField type="text" id="title" value={title} onChange={e => setTitle(e.target.value)}></TextField>
       <FormLabel htmlFor='date'>Date (YYYY-MM-DD)</FormLabel>

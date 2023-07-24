@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import FullCalendar from '@fullcalendar/react';
@@ -10,6 +10,20 @@ import BookingService from '../services/BookingService';
 export default function Calendar() {
 
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const [events, setEvents] = useState([]);
+  const empNo = location.state && location.state.empNo;
+
+  useEffect(() => {
+    if (empNo) {
+      BookingService.getForEmployee(empNo)
+        .then(res => setEvents(res.data))
+    } else {
+      BookingService.getAll()
+        .then(res => setEvents(res.data))
+    }
+  },[empNo]);
 
   const selectHandler = (info) => {
     if (info.view.type === 'dayGridMonth') {
@@ -26,34 +40,13 @@ export default function Calendar() {
   }
 
   const handleEventClickHandler = (info) => {
-    // alert('Event: ' + info.event.title);
-    // alert('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
-    // alert('View: ' + info.view.type);
-
     if (info.view.type === 'dayGridMonth') {
       const date = info.event.startStr;
-      // const month = getMonthString(date.getMonth());
-      const eventDate = date.substring(0,10);
+      const eventDate = date.substring(0, 10);
       handleDateClick(info, eventDate);
     } else if (info.view.type === 'timeGridDay') {
       editEvent(info);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   }
 
   const handleDateClick = (info, date) => {
@@ -78,10 +71,10 @@ export default function Calendar() {
 
     const start = info.event.startStr;
     const end = info.event.endStr;
-    const date = start.substring(0,10);
-    const startTime = start.substring(11,16);
-    const endTime = end.substring(11,16);
-    const timezone = start.substring(19,25);
+    const date = start.substring(0, 10);
+    const startTime = start.substring(11, 16);
+    const endTime = end.substring(11, 16);
+    const timezone = start.substring(19, 25);
 
     const event = {
       id: info.event.id,
@@ -92,24 +85,30 @@ export default function Calendar() {
       endTime,
       timezone
     }
-    debugger
     navigate('/editEvent', { state: { event } });
   };
-
-  const [events, setEvents] = useState([])
-
-  useEffect(() => {
-    BookingService.getAll()
-      .then(res => setEvents(res.data))
-  }, [])
 
   return (
     <div>
       <FullCalendar
         plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
         initialView="dayGridMonth"
+        customButtons={{
+          myBookings: {
+            text: 'My Bookings',
+            click: () => {
+              const empNo = prompt('Enter your employee number');
+              navigate('/mybookings', { state: { empNo } });
+            }
+          }, home: {
+            text: 'Home',
+            click: (e) => {
+              navigate('/');
+            }
+          }
+        }}
         headerToolbar={{
-          left: 'prev,today,next',
+          left: 'prev,today,next home myBookings',
           center: 'title',
           right: 'dayGridMonth'
         }}

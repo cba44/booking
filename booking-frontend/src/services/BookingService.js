@@ -5,10 +5,6 @@ class BookingService {
     return http.get("/bookings");
   }
 
-  //   get(id) {
-  //     return http.get(`/tutorials/${id}`);
-  //   }
-
   create(data) {
     return http.post("/bookings", data);
   }
@@ -19,6 +15,10 @@ class BookingService {
 
   delete(id) {
     return http.delete(`/bookings/${id}`);
+  }
+
+  getForEmployee(empNo) {
+    return http.get(`/bookings/mybookings/${empNo}`)
   }
 }
 

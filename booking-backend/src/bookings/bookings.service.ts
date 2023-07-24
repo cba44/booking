@@ -54,4 +54,8 @@ export class BookingsService {
         await this.bookingRepository.delete(id);
         return foundBooking.id;
     }
+
+    async findForEmployee(empNo: number): Promise<Booking[]> {
+        return this.bookingRepository.findBy({employeeNo: empNo})
+    }
 }
