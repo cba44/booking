@@ -37,4 +37,5 @@ export class BookingsController {
     async GetForEmployee(@Param('empNo') empNo: number): Promise<Booking[]> {
         return await this.bookingsService.findForEmployee(empNo);
     }
+
 }
